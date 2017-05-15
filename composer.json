@@ -25,5 +25,8 @@
         "psr-4": {
             "FlyingLuscas\\PagarMeLaravel\\": "tests"
         }
+    },
+    "scripts": {
+        "test": "phpunit --colors=always"
     }
 }
