@@ -2,9 +2,12 @@
 
 namespace FlyingLuscas\PagarMeLaravel;
 
-use PHPUnit\Framework\TestCase as PHPUnitTestCase;
+use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
-abstract class TestCase extends PHPUnitTestCase
+abstract class TestCase extends OrchestraTestCase
 {
-    //
+    protected function getPackageProviders($app)
+    {
+        return [PagarMeServiceProvider::class];
+    }
 }
