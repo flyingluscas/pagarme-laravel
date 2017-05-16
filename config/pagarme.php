@@ -15,7 +15,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | API Key
+    | Encryption Key
     |--------------------------------------------------------------------------
     |
     | Set up your encryption key, you can find your key accessing your
