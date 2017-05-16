@@ -55,7 +55,7 @@ class ServiceProviderTest extends TestCase
             $configFile, 'Config file was not published.'
         );
 
-        if (file_exists($configFile)) {
+        if (is_file($configFile)) {
             unlink($configFile);
         }
     }
