@@ -9,7 +9,7 @@ class ServiceProviderTest extends TestCase
         $pagarme = PagarMeServiceProvider::class;
         $providers = $this->app->getLoadedProviders();
 
-        $this->assertArrayHasKey($pagarme, $providers);
-        $this->assertTrue($providers[$pagarme]);
+        $this->assertArrayHasKey($pagarme, $providers, 'Service provider is not being loaded.');
+        $this->assertTrue($providers[$pagarme], 'Service provider is not being loaded.');
     }
 }
