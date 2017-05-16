@@ -47,17 +47,16 @@ class ServiceProviderTest extends TestCase
     {
         $configFile = $this->app->configPath('pagarme.php');
 
-        if (is_file($configFile)) {
-            unlink($configFile);
-        }
-
         $this->artisan('vendor:publish', [
             '--force' => true,
         ]);
 
-        $this->assertTrue(
-            is_file($configFile),
-            'Config file was not published.'
+        $this->assertFileExists(
+            $configFile, 'Config file was not published.'
         );
+
+        if (file_exists($configFile)) {
+            unlink($configFile);
+        }
     }
 }
