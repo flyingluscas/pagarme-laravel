@@ -45,7 +45,7 @@ class ServiceProviderTest extends TestCase
 
     public function testCanPublishConfigFile()
     {
-        $configFile = $this->app->configPath('pagarme.php');
+        $configFile = $this->app->configPath().'/pagarme.php';
 
         $this->artisan('vendor:publish', [
             '--force' => true,
