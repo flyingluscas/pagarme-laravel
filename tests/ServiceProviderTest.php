@@ -12,7 +12,7 @@ class ServiceProviderTest extends TestCase
         $this->assertArrayHasKey(
             $pagarme,
             $providers,
-            'Service provider is not being loaded.'
+            'Service provider was not loaded.'
         );
     }
 
@@ -25,12 +25,12 @@ class ServiceProviderTest extends TestCase
 
         $this->assertTrue(
             $this->app->config->has($config),
-            'The '.$config.' config is not being loaded.'
+            'Config '.$config.' was not found.'
         );
     }
 
     /**
-     * Provide a list of config keys that
+     * Get a list of config keys that
      * must be loaded by the service provider.
      *
      * @return array
@@ -41,5 +41,21 @@ class ServiceProviderTest extends TestCase
             ['api_key'],
             ['encryption_key'],
         ];
+    }
+
+    public function testCanPublishConfigFile()
+    {
+        $configFile = $this->app->configPath('pagarme.php');
+
+        if (is_file($configFile)) {
+            unlink($configFile);
+        }
+
+        $this->artisan('vendor:publish');
+
+        $this->assertTrue(
+            is_file($configFile),
+            'Config file was not published.'
+        );
     }
 }

@@ -16,6 +16,10 @@ class PagarMeServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../config/pagarme.php', 'pagarme'
         );
+
+        $this->publishes([
+            __DIR__.'/../config/pagarme.php' => config_path('pagarme.php')
+        ]);
     }
 
     /**
