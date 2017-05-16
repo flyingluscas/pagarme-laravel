@@ -19,9 +19,9 @@ class ServiceProviderTest extends TestCase
     /**
      * @dataProvider getConfigKeys
      */
-    public function testIsLoadingConfigurations($configKey)
+    public function testIsLoadingConfig($key)
     {
-        $config = 'pagarme.'.$configKey;
+        $config = 'pagarme.'.$key;
 
         $this->assertTrue(
             $this->app->config->has($config),
