@@ -17,4 +17,14 @@ class PagarMeServiceProvider extends ServiceProvider
             __DIR__.'/../config/pagarme.php', 'pagarme'
         );
     }
+
+    /**
+     * Register bindings in the container.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
 }
