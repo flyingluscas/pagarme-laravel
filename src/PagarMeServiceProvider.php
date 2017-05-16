@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 class PagarMeServiceProvider extends ServiceProvider
 {
     /**
-     * Register bindings in the container.
+     * Bootstrap any application services.
      *
      * @return void
      */
