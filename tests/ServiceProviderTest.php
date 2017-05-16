@@ -51,7 +51,9 @@ class ServiceProviderTest extends TestCase
             unlink($configFile);
         }
 
-        $this->artisan('vendor:publish');
+        $this->artisan('vendor:publish', [
+            '--force' => true,
+        ]);
 
         $this->assertTrue(
             is_file($configFile),
