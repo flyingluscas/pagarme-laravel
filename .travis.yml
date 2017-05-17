@@ -55,7 +55,7 @@ install:
   - composer update --no-interaction --prefer-dist
 
 script:
-  - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
+  - vendor/bin/phpunit --coverage-text
 
 after_success:
   - composer require codeclimate/php-test-reporter --no-interaction --dev
