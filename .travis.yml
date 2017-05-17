@@ -12,14 +12,14 @@ cache:
   directories:
     - $HOME/.composer/cache
 
+env:
+  LARAVEL_VERSION: ^5.1
+  ORCHESTRA_VERSION: ^3.1
+
 matrix:
   include:
     - php: 5.6
       env: 'COMPOSER_FLAGS="--prefer-stable --prefer-lowest"'
-    - php: 5.5
-      env:
-        LARAVEL_VERSION: ^5.1
-        ORCHESTRA_VERSION: ^3.1
 
 before_script:
   - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist
