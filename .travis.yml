@@ -12,13 +12,47 @@ cache:
   directories:
     - $HOME/.composer/cache
 
+env:
+  LARAVEL_VERSION: "5.1.*"
+  ORCHESTRA_VERSION: "3.1.*"
+
 matrix:
   include:
+    - php: 5.5.9
+      env: LARAVEL_VERSION="5.1.*" ORCHESTRA_VERSION="3.1.*"
+    - php: 5.5.9
+      env: LARAVEL_VERSION="5.2.*" ORCHESTRA_VERSION="3.2.*"
     - php: 5.6
-      env: 'COMPOSER_FLAGS="--prefer-stable --prefer-lowest"'
+      env: LARAVEL_VERSION="5.1.*" ORCHESTRA_VERSION="3.1.*"
+    - php: 5.6
+      env: LARAVEL_VERSION="5.2.*" ORCHESTRA_VERSION="3.2.*"
+    - php: 5.6
+      env: LARAVEL_VERSION="5.3.*" ORCHESTRA_VERSION="3.3.*"
+    - php: 5.6
+      env: LARAVEL_VERSION="5.4.*" ORCHESTRA_VERSION="3.4.*"
+    - php: 7.0
+      env: LARAVEL_VERSION="5.1.*" ORCHESTRA_VERSION="3.1.*"
+    - php: 7.0
+      env: LARAVEL_VERSION="5.2.*" ORCHESTRA_VERSION="3.2.*"
+    - php: 7.0
+      env: LARAVEL_VERSION="5.3.*" ORCHESTRA_VERSION="3.3.*"
+    - php: 7.0
+      env: LARAVEL_VERSION="5.4.*" ORCHESTRA_VERSION="3.4.*"
+    - php: 7.1
+      env: LARAVEL_VERSION="5.1.*" ORCHESTRA_VERSION="3.1.*"
+    - php: 7.1
+      env: LARAVEL_VERSION="5.2.*" ORCHESTRA_VERSION="3.2.*"
+    - php: 7.1
+      env: LARAVEL_VERSION="5.3.*" ORCHESTRA_VERSION="3.3.*"
+    - php: 7.1
+      env: LARAVEL_VERSION="5.4.*" ORCHESTRA_VERSION="3.4.*"
 
-before_script:
-  - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist
+before_install:
+  - composer require "illuminate/support:${LARAVEL_VERSION}" --no-update
+  - composer require "orchestra/testbench:${ORCHESTRA_VERSION}" --no-update --dev
+
+install:
+  - composer update --no-interaction --prefer-dist
 
 script:
-  - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
+  - phpunit --coverage-text --coverage-clover=coverage.clover
