@@ -40,8 +40,8 @@ class ServiceProviderTest extends TestCase
     public function getConfigKeys()
     {
         return [
-            ['api_key'],
-            ['encryption_key'],
+            ['keys.api'],
+            ['keys.encryption'],
         ];
     }
 

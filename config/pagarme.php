@@ -4,24 +4,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | API Key
+    | Authentication Keys
     |--------------------------------------------------------------------------
     |
-    | Set up your API key, you can find your key accessing your
-    | dashboard at https://dashboard.pagar.me
-    */
-
-    'api_key' => env('PAGARME_API_KEY', ''),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Encryption Key
-    |--------------------------------------------------------------------------
+    | Here you may set up your authentication keys from Pagar.me, you can find
+    | your keys accessing the dashboard at the link below.
     |
-    | Set up your encryption key, you can find your key accessing your
-    | dashboard at https://dashboard.pagar.me
+    | See: https://dashboard.pagar.me/#/myaccount/apikeys
     */
 
-    'encryption_key' => env('PAGARME_ENCRYPTION_KEY', ''),
+    'keys' => [
+        'api' => env('PAGARME_API_KEY', ''),
+        'encryption' => env('PAGARME_ENCRYPTION_KEY', ''),
+    ],
 
 ];
