@@ -67,7 +67,7 @@ class ServiceProviderTest extends TestCase
         $this->assertInstanceOf(
             PagarMe::class,
             $this->app->make('PagarMe'),
-            'The PagarMe class is not bound to the container.'
+            'The '.PagarMe::class.' class is not bound to the container.'
         );
     }
 }
