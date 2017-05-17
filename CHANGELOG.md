@@ -7,5 +7,5 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ## 0.1.0 - 2017-05-17
 
 ### Added
-- Config files to store the API keys.
-- Laravel facade for the PagarMe class.
+- Config file to store the API keys.
+- PagarMe facade to make things easier.
