@@ -58,8 +58,8 @@ script:
   - vendor/bin/phpunit --coverage-text
 
 after_success:
-  - composer require codeclimate/php-test-reporter --no-interaction --dev
   - |
     if [[ "$TRAVIS_PHP_VERSION" == '5.6' ]]; then
+      composer require codeclimate/php-test-reporter --no-interaction --dev;
       vendor/bin/test-reporter;
     fi
