@@ -14,12 +14,12 @@ class PagarMeServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->mergeConfigFrom(
-            __DIR__.'/../config/pagarme.php', 'pagarme'
-        );
+        $configFile = __DIR__.'/../config/pagarme.php';
+
+        $this->mergeConfigFrom($configFile, 'pagarme');
 
         $this->publishes([
-            __DIR__.'/../config/pagarme.php' => config_path('pagarme.php'),
+            $configFile => config_path('pagarme.php'),
         ]);
     }
 
@@ -32,7 +32,7 @@ class PagarMeServiceProvider extends ServiceProvider
     {
         $this->app->singleton('PagarMe', function ($app) {
             return new PagarMe(
-                $app->config->get('pagarme.api_key')
+                $app->config->get('pagarme.keys.api')
             );
         });
     }
