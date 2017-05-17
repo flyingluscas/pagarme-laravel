@@ -34,7 +34,7 @@ Set up the **service provider** and the **facade** in your **config/app.php** fi
 ],
 ```
 
-#### 2. Configurarion
+#### 2. Configurations
 
 Publish the **config/pagarme.php** file and set [your keys from the Pagar.me API][link-pagarme-dash].
 
