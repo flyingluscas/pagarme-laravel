@@ -48,11 +48,11 @@ matrix:
       env: LARAVEL_VERSION="5.4.*" ORCHESTRA_VERSION="3.4.*"
 
 before_install:
-  - composer require "illuminate/support:${LARAVEL_VERSION}" --no-update
-  - composer require "orchestra/testbench:${ORCHESTRA_VERSION}" --no-update --dev
+  - composer require "illuminate/support:${LARAVEL_VERSION}" --no-update --no-interaction
+  - composer require "orchestra/testbench:${ORCHESTRA_VERSION}" --no-update --no-interaction --dev
 
 install:
   - composer update --no-interaction --prefer-dist
 
 script:
-  - phpunit --coverage-text --coverage-clover=coverage.clover
+  - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
