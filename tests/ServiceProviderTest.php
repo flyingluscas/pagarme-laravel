@@ -2,9 +2,11 @@
 
 namespace FlyingLuscas\PagarMeLaravel;
 
+use PagarMe\Sdk\PagarMe;
+
 class ServiceProviderTest extends TestCase
 {
-    public function testIsLoadingServiceProvider()
+    public function testIfTheServiceProviderWasLoaded()
     {
         $pagarme = PagarMeServiceProvider::class;
         $providers = $this->app->getLoadedProviders();
@@ -19,7 +21,7 @@ class ServiceProviderTest extends TestCase
     /**
      * @dataProvider getConfigKeys
      */
-    public function testIsLoadingConfig($key)
+    public function testIfTheConfigFileWasLoaded($key)
     {
         $config = 'pagarme.'.$key;
 
@@ -43,7 +45,7 @@ class ServiceProviderTest extends TestCase
         ];
     }
 
-    public function testCanPublishConfigFile()
+    public function testIfTheConfigFileCanBePublished()
     {
         $configFile = $this->app->configPath().'/pagarme.php';
 
@@ -58,5 +60,14 @@ class ServiceProviderTest extends TestCase
         if (is_file($configFile)) {
             unlink($configFile);
         }
+    }
+
+    public function testIfThePagarMeClientIsBoundToTheContainer()
+    {
+        $this->assertInstanceOf(
+            PagarMe::class,
+            $this->app->make('PagarMe'),
+            'The PagarMe class is not bound to the container.'
+        );
     }
 }

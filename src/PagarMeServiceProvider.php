@@ -2,6 +2,7 @@
 
 namespace FlyingLuscas\PagarMeLaravel;
 
+use PagarMe\Sdk\PagarMe;
 use Illuminate\Support\ServiceProvider;
 
 class PagarMeServiceProvider extends ServiceProvider
@@ -29,6 +30,10 @@ class PagarMeServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton('PagarMe', function ($app) {
+            return new PagarMe(
+                $app->config->get('pagarme.api_key')
+            );
+        });
     }
 }
