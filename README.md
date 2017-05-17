@@ -36,7 +36,7 @@ Set up the **service provider** and the **facade** in your **config/app.php** fi
 
 #### 2. Configurarion
 
-Publish the **config/pagarme.php** file and set your keys from the Pagar.me API.
+Publish the **config/pagarme.php** file and set [your keys from the Pagar.me API][link-pagarme-dash].
 
 ``` bash
 $ php artisan vendor:publish --provider="FlyingLuscas\PagarMeLaravel\PagarMeServiceProvider"
@@ -102,3 +102,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-author]: https://github.com/flyingluscas
 [link-contributors]: ../../contributors
 [link-pagarme-wiki]: https://github.com/pagarme/pagarme-php/wiki
+[link-pagarme-dash]: https://dashboard.pagar.me/#/myaccount/apikeys
