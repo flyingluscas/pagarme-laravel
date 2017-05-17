@@ -20,7 +20,43 @@ $ composer require flyingluscas/pagarme-laravel
 
 ## Usage
 
-Coming soon...
+#### 1. Service Provider and Facade
+
+Set up the **service provider** and the **facade** in your **config/app.php** file.
+
+``` php
+'providers' => [
+    FlyingLuscas\PagarMeLaravel\PagarMeServiceProvider::class,
+],
+
+'aliases' => [
+    'PagarMe' => FlyingLuscas\PagarMeLaravel\PagarMeFacade::class,
+],
+```
+
+#### 2. Configurarion
+
+Publish the **config/pagarme.php** file and set your keys from the Pagar.me API.
+
+``` bash
+$ php artisan vendor:publish --provider="FlyingLuscas\PagarMeLaravel\PagarMeServiceProvider"
+```
+
+#### 3. Ready to go
+
+You are ready to start creating your transactions using the PagarMe facade, see a quick example below.
+
+``` php
+PagarMe::transaction()
+    ->boletoTransaction(
+        1000,
+        $customer,
+        'http://requestb.in/pkt7pgpk',
+        ['id_product' => 13933139]
+    );
+```
+
+For more examples please visit the original [documentation available here][link-pagarme-wiki].
 
 ## Change log
 
@@ -65,3 +101,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-downloads]: https://packagist.org/packages/flyingluscas/pagarme-laravel
 [link-author]: https://github.com/flyingluscas
 [link-contributors]: ../../contributors
+[link-pagarme-wiki]: https://github.com/pagarme/pagarme-php/wiki
