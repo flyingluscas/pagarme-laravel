@@ -19,7 +19,7 @@ class PagarMeServiceProvider extends ServiceProvider
         );
 
         $this->publishes([
-            __DIR__.'/../config/pagarme.php' => config_path('pagarme.php')
+            __DIR__.'/../config/pagarme.php' => config_path('pagarme.php'),
         ]);
     }
 

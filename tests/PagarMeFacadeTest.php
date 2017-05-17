@@ -4,7 +4,7 @@ namespace FlyingLuscas\PagarMeLaravel;
 
 use PagarMe\Sdk\PagarMe;
 
-class PagarmeFacadeTest extends TestCase
+class PagarMeFacadeTest extends TestCase
 {
     /**
      * @dataProvider getPagarMeHandlersMethods
