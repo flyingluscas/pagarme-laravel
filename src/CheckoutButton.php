@@ -19,7 +19,7 @@ class CheckoutButton
      *
      * @param array|null $attributes
      */
-    public function __construct(array $attributes = null)
+    public function __construct(array $attributes = [])
     {
         $this->attribues = array_merge($this->attribues, $attributes);
     }
