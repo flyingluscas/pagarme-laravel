@@ -4,7 +4,7 @@ namespace FlyingLuscas\PagarMeLaravel;
 
 use PagarMe\Sdk\PagarMe;
 
-class ServiceProviderTest extends TestCase
+class ServiceProviderTest extends IntegrationTestCase
 {
     public function testIfTheServiceProviderWasLoaded()
     {

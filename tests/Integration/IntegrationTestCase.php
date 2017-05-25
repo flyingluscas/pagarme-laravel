@@ -2,9 +2,9 @@
 
 namespace FlyingLuscas\PagarMeLaravel;
 
-use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Orchestra\Testbench\TestCase;
 
-abstract class TestCase extends OrchestraTestCase
+abstract class IntegrationTestCase extends TestCase
 {
     /**
      * Service providers to be loaded.

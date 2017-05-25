@@ -23,6 +23,10 @@
         }
     },
     "autoload-dev": {
+        "files": [
+            "tests/Unit/UnitTestCase.php",
+            "tests/Integration/IntegrationTestCase.php"
+        ],
         "psr-4": {
             "FlyingLuscas\\PagarMeLaravel\\": "tests"
         }
