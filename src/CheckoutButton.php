@@ -50,6 +50,52 @@ class CheckoutButton
     }
 
     /**
+     * Sets the encryption key attribute.
+     *
+     * @param  string $key
+     *
+     * @return self
+     */
+    public function encryptionKey($key)
+    {
+        $this->setAttribute('data-encryption-key', $key);
+
+        return $this;
+    }
+
+    /**
+     * Sets the amount value.
+     *
+     * @param  int|double $value
+     *
+     * @return self
+     */
+    public function amount($value)
+    {
+        $this->setAttribute('data-amount', $this->getAmountWithCents($value));
+
+        return $this;
+    }
+
+    /**
+     * Get amount value formatted with cents.
+     *
+     * @param  int|double $value
+     *
+     * @return string
+     */
+    protected function getAmountWithCents($value)
+    {
+        if (!strrpos($value, '.')) {
+            return $value.'00';
+        }
+
+        list($value, $decimals) = explode('.', $value);
+
+        return $value.str_pad($decimals, 2, '0');
+    }
+
+    /**
      * Build HTML button.
      *
      * @return string

@@ -29,6 +29,39 @@ class CheckoutButtonTest extends UnitTestCase
         $this->assertButtonHasAttribute('data-amount', 100);
     }
 
+    public function testIfCanSetTheEncryptionKey()
+    {
+        $this->assertInstanceOf(
+            CheckoutButton::class,
+            $this->button->encryptionKey('example')
+        );
+
+        $this->assertButtonHasAttribute('data-encryption-key', 'example');
+    }
+
+    /**
+     * @dataProvider amountProvider
+     */
+    public function testIfCanSetAmount($amount, $expected)
+    {
+        $this->assertInstanceOf(
+            CheckoutButton::class,
+            $this->button->amount($amount)
+        );
+
+        $this->assertButtonHasAttribute('data-amount', $expected);
+    }
+
+    public function amountProvider()
+    {
+        return [
+            [14, '1400'],
+            [14.7, '1470'],
+            [14.79, '1479'],
+            [1000, '100000'],
+        ];
+    }
+
     /**
      * @param  string $name
      * @param  mixed  $value
@@ -37,16 +70,15 @@ class CheckoutButtonTest extends UnitTestCase
      */
     protected function assertButtonHasAttribute($name, $value = null)
     {
+        $renderedButton = $this->button->render();
+
         if (is_null($value)) {
-            return $this->assertContains(
-                $name,
-                $this->button->render()
-            );
+            return $this->assertContains($name, $renderedButton);
         }
 
         return $this->assertContains(
             sprintf('%s="%s"', $name, $value),
-            $this->button->render()
+            $renderedButton
         );
     }
 }
