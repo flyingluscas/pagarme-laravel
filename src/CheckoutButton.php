@@ -4,15 +4,24 @@ namespace FlyingLuscas\PagarMeLaravel;
 
 class CheckoutButton
 {
+    const CDN = 'https://assets.pagar.me/checkout/checkout.js';
+
     /**
-     * Button attribues.
+     * Default attributes.
      *
      * @var array
      */
-    protected $attribues = [
+    protected $attributes = [
         'type' => 'text/javascript',
-        'src' => 'https://assets.pagar.me/checkout/checkout.js',
+        'src' => self::CDN,
     ];
+
+    /**
+     * Data attributes.
+     *
+     * @var array
+     */
+    protected $dataAttribues = [];
 
     /**
      * Creates a new class instance.
@@ -21,7 +30,11 @@ class CheckoutButton
      */
     public function __construct(array $attributes = [])
     {
-        $this->attribues = array_merge($this->attribues, $attributes);
+        $this->dataAttribues = array_map(
+            [$this, 'setDataAttribute'],
+            $attributes,
+            array_keys($attributes)
+        );
     }
 
     /**
@@ -35,30 +48,20 @@ class CheckoutButton
     }
 
     /**
-     * Set button attributes.
+     * Sets data attributes.
      *
-     * @param string $name
      * @param string $value
+     * @param string $name
      *
      * @return self
      */
-    public function setAttribute($name, $value)
+    public function setDataAttribute($value, $name)
     {
-        $this->attribues[$name] = $value;
+        if (! preg_match('/^data\-/', $name)) {
+            $name = 'data-'.$name;
+        }
 
-        return $this;
-    }
-
-    /**
-     * Sets the encryption key attribute.
-     *
-     * @param  string $key
-     *
-     * @return self
-     */
-    public function encryptionKey($key)
-    {
-        $this->setAttribute('data-encryption-key', $key);
+        $this->dataAttribues[$name] = $value;
 
         return $this;
     }
@@ -66,27 +69,27 @@ class CheckoutButton
     /**
      * Sets the amount value.
      *
-     * @param  int|double $value
+     * @param  int|float $value
      *
      * @return self
      */
     public function amount($value)
     {
-        $this->setAttribute('data-amount', $this->getAmountWithCents($value));
+        $this->setDataAttribute($this->getAmountInCentsFormat($value), 'amount');
 
         return $this;
     }
 
     /**
-     * Get amount value formatted with cents.
+     * Get the amount value in cents.
      *
-     * @param  int|double $value
+     * @param  int|float $value
      *
      * @return string
      */
-    protected function getAmountWithCents($value)
+    protected function getAmountInCentsFormat($value)
     {
-        if (!strrpos($value, '.')) {
+        if (! strrpos($value, '.')) {
             return $value.'00';
         }
 
@@ -96,16 +99,18 @@ class CheckoutButton
     }
 
     /**
-     * Build HTML button.
+     * Build HTML script tag.
      *
      * @return string
      */
     protected function buildHTML()
     {
-        $attribues = implode(' ', array_map(function ($value, $name) {
-            return sprintf('%s="%s"', $name, $value);
-        }, $this->attribues, array_keys($this->attribues)));
+        $attribues = array_merge($this->attributes, $this->dataAttribues);
 
-        return '<script '.$attribues.'></script>';
+        $attributesHTMLSyntax = implode(' ', array_map(function ($value, $name) {
+            return sprintf('%s="%s"', $name, $value);
+        }, $attribues, array_keys($attribues)));
+
+        return '<script '.$attributesHTMLSyntax.'></script>';
     }
 }

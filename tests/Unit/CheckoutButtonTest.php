@@ -16,27 +16,17 @@ class CheckoutButtonTest extends UnitTestCase
 
     public function testIfCanRenderScriptTag()
     {
-        $this->assertEquals(
-            '<script type="text/javascript" src="https://assets.pagar.me/checkout/checkout.js"></script>',
-            $this->button->render()
-        );
+        $this->assertButtonHasAttribute('type', 'text/javascript');
+        $this->assertButtonHasAttribute('src', 'https://assets.pagar.me/checkout/checkout.js');
     }
 
     public function testIfCanSetAttribute()
     {
-        $this->button->setAttribute('data-amount', 100);
+        $this->button->setDataAttribute(100, 'amount');
+        $this->button->setDataAttribute('Pagar', 'data-button-text');
 
         $this->assertButtonHasAttribute('data-amount', 100);
-    }
-
-    public function testIfCanSetTheEncryptionKey()
-    {
-        $this->assertInstanceOf(
-            CheckoutButton::class,
-            $this->button->encryptionKey('example')
-        );
-
-        $this->assertButtonHasAttribute('data-encryption-key', 'example');
+        $this->assertButtonHasAttribute('data-button-text', 'Pagar');
     }
 
     /**
