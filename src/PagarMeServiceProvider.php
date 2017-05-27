@@ -4,6 +4,7 @@ namespace FlyingLuscas\PagarMeLaravel;
 
 use PagarMe\Sdk\PagarMe;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\Compilers\BladeCompiler;
 
 class PagarMeServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,8 @@ class PagarMeServiceProvider extends ServiceProvider
         $this->publishes([
             $configFile => config_path('pagarme.php'),
         ]);
+
+        $this->registerCheckoutBladeDirective();
     }
 
     /**
@@ -34,6 +37,28 @@ class PagarMeServiceProvider extends ServiceProvider
             return new PagarMe(
                 $app->config->get('pagarme.keys.api')
             );
+        });
+
+        $this->app->singleton('PagarMe.Checkout', function ($app) {
+            return new CheckoutButton([
+                'encryption-key' => $app->config->get('pagarme.keys.encryption'),
+            ]);
+        });
+    }
+
+    /**
+     * Register blade directive.
+     *
+     * @return void
+     */
+    private function registerCheckoutBladeDirective()
+    {
+        $this->app->make(BladeCompiler::class)->directive('checkout', function ($attributes) {
+            if ($attributes) {
+                return '<?php echo app(\'PagarMe.Checkout\')->withAttributes('.$attributes.')->render(); ?>';
+            }
+
+            return '<?php echo app(\'PagarMe.Checkout\')->render(); ?>';
         });
     }
 }

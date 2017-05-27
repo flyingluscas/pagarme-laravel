@@ -21,20 +21,18 @@ class CheckoutButton
      *
      * @var array
      */
-    protected $dataAttribues = [];
+    protected $dataAttributes = [];
 
     /**
      * Creates a new class instance.
      *
-     * @param array|null $attributes
+     * @param array $attributes
      */
     public function __construct(array $attributes = [])
     {
-        $this->dataAttribues = array_map(
-            [$this, 'setDataAttribute'],
-            $attributes,
-            array_keys($attributes)
-        );
+        if ($attributes) {
+            $this->withAttributes($attributes);
+        }
     }
 
     /**
@@ -48,20 +46,19 @@ class CheckoutButton
     }
 
     /**
-     * Sets data attributes.
+     * Mass assign attributes.
      *
-     * @param string $value
-     * @param string $name
+     * @param  array  $attributes
      *
      * @return self
      */
-    public function setDataAttribute($value, $name)
+    public function withAttributes(array $attributes)
     {
-        if (! preg_match('/^data\-/', $name)) {
-            $name = 'data-'.$name;
-        }
+        $attributes = array_merge($this->dataAttributes, $attributes);
 
-        $this->dataAttribues[$name] = $value;
+        foreach ($attributes as $name => $value) {
+            $this->setDataAttribute($name, $value);
+        }
 
         return $this;
     }
@@ -75,7 +72,27 @@ class CheckoutButton
      */
     public function amount($value)
     {
-        $this->setDataAttribute($this->getAmountInCentsFormat($value), 'amount');
+        $this->setDataAttribute(
+            'amount',
+            $this->getAmountInCentsFormat($value)
+        );
+
+        return $this;
+    }
+
+    /**
+     * Sets billet discount amount.
+     *
+     * @param  int|float $value
+     *
+     * @return self
+     */
+    public function billetDiscountAmount($value)
+    {
+        $this->setDataAttribute(
+            'boleto-discount-amount',
+            $this->getAmountInCentsFormat($value)
+        );
 
         return $this;
     }
@@ -99,17 +116,36 @@ class CheckoutButton
     }
 
     /**
+     * Sets data attributes.
+     *
+     * @param string $name
+     * @param string $value
+     *
+     * @return self
+     */
+    protected function setDataAttribute($name, $value)
+    {
+        if (! preg_match('/^data\-/', $name)) {
+            $name = 'data-'.$name;
+        }
+
+        $this->dataAttributes[$name] = $value;
+
+        return $this;
+    }
+
+    /**
      * Build HTML script tag.
      *
      * @return string
      */
     protected function buildHTML()
     {
-        $attribues = array_merge($this->attributes, $this->dataAttribues);
+        $attributes = array_merge($this->attributes, $this->dataAttributes);
 
         $attributesHTMLSyntax = implode(' ', array_map(function ($value, $name) {
             return sprintf('%s="%s"', $name, $value);
-        }, $attribues, array_keys($attribues)));
+        }, $attributes, array_keys($attributes)));
 
         return '<script '.$attributesHTMLSyntax.'></script>';
     }

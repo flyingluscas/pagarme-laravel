@@ -11,11 +11,7 @@ class ServiceProviderTest extends IntegrationTestCase
         $pagarme = PagarMeServiceProvider::class;
         $providers = $this->app->getLoadedProviders();
 
-        $this->assertArrayHasKey(
-            $pagarme,
-            $providers,
-            'Service provider was not loaded.'
-        );
+        $this->assertArrayHasKey($pagarme, $providers);
     }
 
     /**
@@ -25,10 +21,7 @@ class ServiceProviderTest extends IntegrationTestCase
     {
         $config = 'pagarme.'.$key;
 
-        $this->assertTrue(
-            $this->app->config->has($config),
-            'Config '.$config.' was not found.'
-        );
+        $this->assertTrue($this->app->config->has($config));
     }
 
     /**
@@ -53,9 +46,7 @@ class ServiceProviderTest extends IntegrationTestCase
             '--force' => true,
         ]);
 
-        $this->assertFileExists(
-            $configFile, 'Config file was not published.'
-        );
+        $this->assertFileExists($configFile);
 
         if (is_file($configFile)) {
             unlink($configFile);
@@ -66,8 +57,15 @@ class ServiceProviderTest extends IntegrationTestCase
     {
         $this->assertInstanceOf(
             PagarMe::class,
-            $this->app->make('PagarMe'),
-            'The '.PagarMe::class.' class is not bound to the container.'
+            $this->app->make('PagarMe')
+        );
+    }
+
+    public function testIfThePagarMeCheckoutButtonIsBoundToTheContainer()
+    {
+        $this->assertInstanceOf(
+            CheckoutButton::class,
+            $this->app->make('PagarMe.Checkout')
         );
     }
 }

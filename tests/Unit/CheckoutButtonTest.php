@@ -20,10 +20,15 @@ class CheckoutButtonTest extends UnitTestCase
         $this->assertButtonHasAttribute('src', 'https://assets.pagar.me/checkout/checkout.js');
     }
 
-    public function testIfCanSetAttribute()
+    public function testIfCanSetAttributes()
     {
-        $this->button->setDataAttribute(100, 'amount');
-        $this->button->setDataAttribute('Pagar', 'data-button-text');
+        $this->assertInstanceOf(
+            CheckoutButton::class,
+            $this->button->withAttributes([
+                'amount' => 100,
+                'button-text' => 'Pagar',
+            ])
+        );
 
         $this->assertButtonHasAttribute('data-amount', 100);
         $this->assertButtonHasAttribute('data-button-text', 'Pagar');
@@ -40,6 +45,19 @@ class CheckoutButtonTest extends UnitTestCase
         );
 
         $this->assertButtonHasAttribute('data-amount', $expected);
+    }
+
+    /**
+     * @dataProvider amountProvider
+     */
+    public function testIfCanSetBilletDiscountAmount($amount, $expected)
+    {
+        $this->assertInstanceOf(
+            CheckoutButton::class,
+            $this->button->billetDiscountAmount($amount)
+        );
+
+        $this->assertButtonHasAttribute('data-boleto-discount-amount', $expected);
     }
 
     public function amountProvider()
