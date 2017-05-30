@@ -20,11 +20,6 @@ class BladeCheckoutTest extends IntegrationTestCase
         $this->blade = $this->app->make(BladeCompiler::class);
     }
 
-    public function testIfBladeDirectiveIsRegistered()
-    {
-        $this->assertArrayHasKey('checkout', $this->blade->getCustomDirectives());
-    }
-
     public function testDirectiveCanRenderWithoutAttributes()
     {
         $this->assertEquals(

@@ -23,7 +23,7 @@ class PagarMeServiceProvider extends ServiceProvider
             $configFile => config_path('pagarme.php'),
         ]);
 
-        $this->registerCheckoutBladeDirective();
+        $this->registerBladeDirective();
     }
 
     /**
@@ -33,6 +33,8 @@ class PagarMeServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->bindBladeCompilerIfNeeded();
+
         $this->app->singleton('PagarMe', function ($app) {
             return new PagarMe(
                 $app->config->get('pagarme.keys.api')
@@ -47,15 +49,34 @@ class PagarMeServiceProvider extends ServiceProvider
     }
 
     /**
+     * Bind blade compiler for backwards
+     * compatibility with Laravel 5.1 and 5.2.
+     *
+     * @return void
+     */
+    private function bindBladeCompilerIfNeeded()
+    {
+        if (! preg_match('/^5.(1|2)/', $this->app->version())) {
+            return false;
+        }
+
+        $this->app->singleton(BladeCompiler::class, function ($app) {
+            return new BladeCompiler(
+                $app->files, $this->app->config->get('view.compiled')
+            );
+        });
+    }
+
+    /**
      * Register blade directive.
      *
      * @return void
      */
-    private function registerCheckoutBladeDirective()
+    private function registerBladeDirective()
     {
         $this->app->make(BladeCompiler::class)->directive('checkout', function ($attributes) {
             if ($attributes) {
-                return '<?php echo app(\'PagarMe.Checkout\')->withAttributes('.$attributes.')->render(); ?>';
+                return '<?php echo app(\'PagarMe.Checkout\')->withAttributes'.$attributes.'->render(); ?>';
             }
 
             return '<?php echo app(\'PagarMe.Checkout\')->render(); ?>';
