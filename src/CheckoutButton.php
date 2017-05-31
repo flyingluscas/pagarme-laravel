@@ -4,7 +4,7 @@ namespace FlyingLuscas\PagarMeLaravel;
 
 class CheckoutButton
 {
-    const CDN = 'https://assets.pagar.me/checkout/checkout.js';
+    const CDN_SCRIPT = 'https://assets.pagar.me/checkout/checkout.js';
 
     /**
      * Default attributes.
@@ -13,7 +13,7 @@ class CheckoutButton
      */
     protected $attributes = [
         'type' => 'text/javascript',
-        'src' => self::CDN,
+        'src' => self::CDN_SCRIPT,
     ];
 
     /**
@@ -38,10 +38,16 @@ class CheckoutButton
     /**
      * Render checkout button.
      *
+     * @param  array  $attributes
+     *
      * @return string
      */
-    public function render()
+    public function render(array $attributes = [])
     {
+        if ($attributes) {
+            $this->withAttributes($attributes);
+        }
+
         return $this->buildHTML();
     }
 

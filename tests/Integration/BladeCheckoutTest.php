@@ -31,7 +31,7 @@ class BladeCheckoutTest extends IntegrationTestCase
     public function testDirectiveCanRenderWithAttributes()
     {
         $this->assertEquals(
-            '<?php echo app(\'PagarMe.Checkout\')->withAttributes([\'amount\' => 100])->render(); ?>',
+            '<?php echo app(\'PagarMe.Checkout\')->render([\'amount\' => 100]); ?>',
             $this->blade->compileString('@checkout ([\'amount\' => 100])')
         );
     }

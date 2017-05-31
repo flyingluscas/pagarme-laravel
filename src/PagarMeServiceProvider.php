@@ -74,12 +74,10 @@ class PagarMeServiceProvider extends ServiceProvider
      */
     private function registerBladeDirective()
     {
-        $this->app->make(BladeCompiler::class)->directive('checkout', function ($attributes) {
-            if ($attributes) {
-                return '<?php echo app(\'PagarMe.Checkout\')->withAttributes'.$attributes.'->render(); ?>';
-            }
+        $this->app->make(BladeCompiler::class)->directive('checkout', function ($arguments) {
+            $attributes = preg_replace('/^\((\[.*\])\)$/', '$1', $arguments);
 
-            return '<?php echo app(\'PagarMe.Checkout\')->render(); ?>';
+            return '<?php echo app(\'PagarMe.Checkout\')->render('.$attributes.'); ?>';
         });
     }
 }
