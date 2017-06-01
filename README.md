@@ -20,7 +20,7 @@ $ composer require flyingluscas/pagarme-laravel
 
 ## Usage
 
-#### 1. Service Provider and Facade
+#### Set up
 
 Set up the **service provider** and the **facade** in your **config/app.php** file.
 
@@ -34,7 +34,7 @@ Set up the **service provider** and the **facade** in your **config/app.php** fi
 ],
 ```
 
-#### 2. Configurations
+#### Configurations
 
 Publish the **config/pagarme.php** file and set [your keys from the Pagar.me API][link-pagarme-dash].
 
@@ -42,9 +42,33 @@ Publish the **config/pagarme.php** file and set [your keys from the Pagar.me API
 $ php artisan vendor:publish --provider="FlyingLuscas\PagarMeLaravel\PagarMeServiceProvider"
 ```
 
-#### 3. Ready to go
+#### Checkout Directive
 
-You are ready to start creating your transactions using the PagarMe facade, see a quick example below.
+Use the blade directive `@checkout` to easily set up the checkout form.
+
+``` blade
+<form action="/payment" method="post">
+    @checkout([
+        'button-text' => 'Pay',
+        'amount' => '1000',
+        'customer-data' => 'true',
+        'payment-methods' => 'boleto,credit_card',
+        'ui-color' => '#bababa',
+        'postback-url' => 'requestb.in/1234',
+        'create-token' => 'true',
+        'interest-rate' => '12',
+        'free-installments' => '3',
+        'default-installment' => '5',
+        'header-text' => 'Title',
+    ])
+</form>
+```
+
+More examples on how to use the checkout form please visit the [official documentation][link-pagarme-checkout-form].
+
+#### Facade
+
+You can easily interact with the SDK using the `PagarMeFacade` class, see an quick example.
 
 ``` php
 PagarMe::transaction()
@@ -56,7 +80,7 @@ PagarMe::transaction()
     );
 ```
 
-For more examples please visit the original [documentation available here][link-pagarme-wiki].
+More examples on how to use the SDK please visit the official [documentation available here][link-pagarme-wiki].
 
 ## Change log
 
@@ -103,3 +127,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-contributors]: ../../contributors
 [link-pagarme-wiki]: https://github.com/pagarme/pagarme-php/wiki
 [link-pagarme-dash]: https://dashboard.pagar.me/#/myaccount/apikeys
+[link-pagarme-checkout-form]: https://docs-beta.pagar.me/docs/inserindo-o-formulario
