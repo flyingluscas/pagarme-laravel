@@ -36,7 +36,7 @@ Set up the **service provider** and the **facade** in your **config/app.php** fi
 
 #### Configurations
 
-Publish the **config/pagarme.php** file and set [your keys from the Pagar.me API][link-pagarme-dash].
+Publish the config/pagarme.php file and set your authentication keys, you can get them [here][link-pagarme-dash].
 
 ``` bash
 $ php artisan vendor:publish --provider="FlyingLuscas\PagarMeLaravel\PagarMeServiceProvider"
@@ -68,7 +68,7 @@ More examples on how to use the checkout form please visit the [official documen
 
 #### Facade
 
-You can easily interact with the SDK using the `PagarMeFacade` class, see an quick example.
+You can easily interact with the SDK using the facade class, see a quick example.
 
 ``` php
 PagarMe::transaction()
