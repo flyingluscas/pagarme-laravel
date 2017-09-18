@@ -24,6 +24,8 @@ $ composer require flyingluscas/pagarme-laravel
 
 Set up the **service provider** and the **facade** in your **config/app.php** file.
 
+> You can skip this step on Laravel 5.5 due to the [self-discovery package feature][link-laravel-self-discovery].
+
 ``` php
 'providers' => [
     FlyingLuscas\PagarMeLaravel\PagarMeServiceProvider::class,
@@ -127,4 +129,5 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-contributors]: ../../contributors
 [link-pagarme-wiki]: https://github.com/pagarme/pagarme-php/wiki
 [link-pagarme-dash]: https://dashboard.pagar.me/#/myaccount/apikeys
-[link-pagarme-checkout-form]: https://docs.pagar.me/docs/inserindo-o-formulario
+[link-pagarme-checkout-form]: https://docs.pagar.me/v2017-07-17/docs/inserindo-o-formulario
+[link-laravel-self-discovery]: https://laravel.com/docs/5.5/packages#package-discovery
