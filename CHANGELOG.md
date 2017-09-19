@@ -4,6 +4,12 @@ All Notable changes to `pagarme-laravel` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 0.3.0 - 2017-09-19
+
+### Added
+- Support to Laravel 5.5
+- Support to [package self-discovery](https://laravel.com/docs/5.5/packages#package-discovery)
+
 ## 0.2.0 - 2017-06-01
 
 ### Added
