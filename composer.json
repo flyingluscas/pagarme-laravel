@@ -1,0 +1,29 @@
+{
+    "name": "flyingluscas/pagarme-laravel",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Lucas Pires",
+            "email": "lucas.pires.mattos@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "FlyingLuscas\\PagarMeLaravel\\": "lib"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "FlyingLuscas\\PagarMeLaravel\\": "tests"
+        }
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8"
+    },
+    "scripts": {
+        "test": "phpunit --colors=always"
+    }
+}
