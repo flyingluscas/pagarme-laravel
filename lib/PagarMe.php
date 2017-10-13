@@ -5,13 +5,6 @@ namespace FlyingLuscas\PagarMeLaravel;
 class PagarMe
 {
     /**
-     * Pagar.me's API Key.
-     *
-     * @var string
-     */
-    private $apiKey;
-
-    /**
      * HTTP Client.
      *
      * @var \GuzzleHttp\ClientInterface
@@ -28,9 +21,9 @@ class PagarMe
         $apiKey,
         \GuzzleHttp\ClientInterface $http = null
     ) {
-        $this->apiKey = $apiKey;
         $this->http = $http ?: new \GuzzleHttp\Client([
             'base_uri' => 'https://api.pagar.me/1/',
+            'query' => ['api_key' => $apiKey],
         ]);
     }
 
@@ -42,7 +35,6 @@ class PagarMe
     public function transactions()
     {
         return new \FlyingLuscas\PagarMeLaravel\Transactions\Handler(
-            $this->apiKey,
             $this->http
         );
     }
