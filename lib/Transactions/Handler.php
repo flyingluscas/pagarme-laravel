@@ -15,13 +15,22 @@ class Handler extends BaseHandler
     public function create(array $payload)
     {
         $response = $this->http->request('POST', 'transactions', [
-            'json' => array_merge([
-                'api_key' => $this->apiKey,
-            ], $payload),
+            'json' => $payload,
         ]);
 
-        return json_decode(
-            $response->getBody()->getContents()
-        );
+        return json_decode($response->getBody()->getContents());
+    }
+
+    /**
+     * Find transaction by ID.
+     *
+     * @param  int $id
+     * @return object
+     */
+    public function find($id)
+    {
+        $response = $this->http->request('GET', "transactions/${id}");
+
+        return json_decode($response->getBody()->getContents());
     }
 }

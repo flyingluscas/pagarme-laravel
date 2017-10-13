@@ -5,13 +5,6 @@ namespace FlyingLuscas\PagarMeLaravel;
 abstract class BaseHandler
 {
     /**
-     * Pagar.me's API Key.
-     *
-     * @var string
-     */
-    protected $apiKey;
-
-    /**
      * HTTP Client.
      *
      * @var \GuzzleHttp\ClientInterface
@@ -21,14 +14,10 @@ abstract class BaseHandler
     /**
      * Get an instance of the base resource handler.
      *
-     * @param string                      $apiKey
      * @param \GuzzleHttp\ClientInterface $http
      */
-    public function __construct(
-        $apiKey,
-        \GuzzleHttp\ClientInterface $http
-    ) {
-        $this->apiKey = $apiKey;
+    public function __construct(\GuzzleHttp\ClientInterface $http)
+    {
         $this->http = $http;
     }
 }
