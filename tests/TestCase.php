@@ -49,14 +49,31 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         return json_decode($response->getBody()->getContents());
     }
 
+    protected function createCreditCardTransaction(array $payload = [])
+    {
+        $default = $this->getCreditCardTransactionPayload();
+
+        return $this->createTransaction(
+            array_merge_recursive($default, $payload)
+        );
+    }
+
     protected function createBoletoTransaction(array $payload = [])
     {
-        $http = new \GuzzleHttp\Client;
         $default = $this->getBoletoTransactionPayload();
+
+        return $this->createTransaction(
+            array_merge_recursive($default, $payload)
+        );
+    }
+
+    protected function createTransaction(array $payload)
+    {
+        $http = new \GuzzleHttp\Client;
 
         $response = $http->request('POST', 'https://api.pagar.me/1/transactions', [
             'query' => ['api_key' => $this->apiKey],
-            'json' => array_merge_recursive($default, $payload),
+            'json' => $payload,
         ]);
 
         return json_decode($response->getBody()->getContents());

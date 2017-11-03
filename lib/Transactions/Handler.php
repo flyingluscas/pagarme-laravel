@@ -33,4 +33,13 @@ class Handler extends BaseHandler
 
         return json_decode($response->getBody()->getContents());
     }
+
+    public function filter(array $filters)
+    {
+        $response = $this->http->request('GET', 'transactions', [
+            'json' => $filters,
+        ]);
+
+        return json_decode($response->getBody()->getContents());
+    }
 }
