@@ -1,21 +1,25 @@
 {
-    "name": "flyingluscas/pagarme-laravel",
+    "name": "mprince/pagarme-laravel",
     "description": "Pagar.me SDK for Laravel applications.",
     "license": "MIT",
     "authors": [
         {
             "name": "Lucas Pires",
             "email": "lucas.pires.mattos@gmail.com"
+        },
+        {
+            "name": "Mohammad Prince",
+            "email": "mprince2k16@gmail.com"
         }
     ],
     "require": {
-        "php": "~5.5||~7.0",
-        "illuminate/support": "^5.1",
-        "pagarme/pagarme-php": "^3.2"
+        "php": "^8.0",
+        "illuminate/support": "^8.*",
+        "pagarme/pagarme-php": "^4.1.2"
     },
     "require-dev": {
-        "phpunit/phpunit": "^4.8",
-        "orchestra/testbench": "^3.1"
+        "phpunit/phpunit": "^9.5.10",
+        "orchestra/testbench": "^6.23.1"
     },
     "autoload": {
         "psr-4": {
