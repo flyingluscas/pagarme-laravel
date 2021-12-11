@@ -14,7 +14,7 @@
     ],
     "require": {
         "php": "^8.0",
-        "illuminate/support": "^8.75.0",
+        "illuminate/support": "^8.*",
         "pagarme/pagarme-php": "^4.1.2"
     },
     "require-dev": {
